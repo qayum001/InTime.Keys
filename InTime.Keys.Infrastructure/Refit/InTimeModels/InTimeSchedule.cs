@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InTime.Keys.Infrastructure.Refit.InTimeModels.Schedule;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace InTime.Keys.Infrastructure.Refit.InTimeModels
 {
-    internal class InTimeSchedule
+    public class InTimeSchedule
     {
+        public DateTime Date { get; set; }
+        public IEnumerable<EmptyLessonGrid> Schedule { get; set; }
     }
 }
