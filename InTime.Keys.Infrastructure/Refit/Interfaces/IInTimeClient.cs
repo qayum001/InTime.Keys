@@ -1,4 +1,5 @@
 ﻿using InTime.Keys.Infrastructure.Refit.InTimeModels;
+using InTime.Keys.Infrastructure.Refit.InTimeModels.User;
 using Refit;
 
 namespace InTime.Keys.Infrastructure.Refit.Interfaces
@@ -6,12 +7,18 @@ namespace InTime.Keys.Infrastructure.Refit.Interfaces
     public interface IInTimeClient
     {
         /// <summary>
+        /// Get user profile, need access token
+        /// </summary>
+        /// <returns></returns>
+        [Get("/v1/user/profile")]
+        Task<InTimeUserProfile> GetProfile([Authorize("Bearer")] string token);
+
+        /// <summary>
         /// Get all professors
         /// </summary>
         /// <returns></returns>
         [Get("/v1/professors")]
         Task<IEnumerable<InTimeProfessor>> GetProfessorsAsync();
-
 
         /// <summary>
         /// Get list of building
