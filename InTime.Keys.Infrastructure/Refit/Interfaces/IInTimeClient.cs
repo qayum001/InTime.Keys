@@ -32,7 +32,7 @@ namespace InTime.Keys.Infrastructure.Refit.Interfaces
         /// </summary>
         /// <param name="buildingId"></param>
         /// <returns></returns>
-        [Get("/v1/buildings/{buildingId}/groups")]
+        [Get("/v1/buildings/{buildingId}/audiences")]
         Task<IEnumerable<InTimeAudience>> GetAudiencesAsync(Guid buildingId);
 
         /// <summary>

@@ -1,4 +1,6 @@
-﻿using InTime.Keys.Infrastructure.Refit.Interfaces;
+﻿using InTime.Keys.Application.Services;
+using InTime.Keys.Infrastructure.Refit.Interfaces;
+using InTime.Keys.Infrastructure.Services;
 using InTime.Keys.Infrastructure.Services.BackgroundServices;
 using Microsoft.Extensions.DependencyInjection;
 using Refit;
@@ -10,7 +12,8 @@ namespace InTime.Keys.Infrastructure.Extensions
         public static void AddInfrastructureLayer(this IServiceCollection services)
         {
             services.AddInTimeClient();
-            services.AddAutoBidService();
+            //services.AddAutoBidService();
+            services.AddServices();
         }
 
         static void AddInTimeClient(this IServiceCollection services)
@@ -21,9 +24,14 @@ namespace InTime.Keys.Infrastructure.Extensions
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://test.intime.kreosoft.space/api/web/"));
         }
 
-        static void AddAutoBidService(this IServiceCollection services)
+        private static void AddAutoBidService(this IServiceCollection services)
         {
             services.AddHostedService<ProfessorAutoBindService>();
+        }
+
+        private static void AddServices(this IServiceCollection services)
+        {
+            services.AddTransient<IKeysCreateService, KeysCreateService>();
         }
     }
 }

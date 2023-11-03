@@ -3,8 +3,12 @@
 public abstract class BaseEntity : IEntity
 {
     private readonly List<BaseEvent> _domainEvents = new();
-    
+
     public Guid Id { get; protected set; }
+    protected BaseEntity(Guid id)
+    {
+        Id = id;
+    }
 
     public IReadOnlyCollection<BaseEvent> DomainEvents => _domainEvents.AsReadOnly();
 
