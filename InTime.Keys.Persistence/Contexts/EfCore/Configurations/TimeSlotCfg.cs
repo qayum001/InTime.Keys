@@ -1,14 +1,15 @@
 ﻿using InTime.Keys.Domain.Enities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.Identity.Client;
 
 namespace InTime.Keys.Persistence.Contexts.EfCore.Configurations;
 
-public class KeyCfg : IEntityTypeConfiguration<Key>
+public class TimeSlotCfg : IEntityTypeConfiguration<TimeSlot>
 {
-    public void Configure(EntityTypeBuilder<Key> builder)
+    public void Configure(EntityTypeBuilder<TimeSlot> builder)
     {
-        builder.HasKey(e => e.Id);
+        builder.HasKey(x => x.Id);
 
         builder.Ignore(e => e.DomainEvents);
     }

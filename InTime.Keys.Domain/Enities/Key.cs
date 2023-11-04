@@ -1,20 +1,31 @@
 ﻿using InTime.Keys.Domain.Common;
+using InTime.Keys.Domain.Enumerations;
+using System.Runtime.InteropServices;
 
 namespace InTime.Keys.Domain.Enities;
 
-public sealed class Key : BaseAuditableEntity
+public class Key : BaseAuditableEntity
 {
     public Guid AudienceId { get; private set; }
     public string AudienceName { get; private set; } = string.Empty;
+    public KeyStatus Status { get; private set; }
 
-    public Key(Guid id, Guid audienceId, string audienceName)
-        : base(id)
+    public void SetStatus(KeyStatus status) => Status = status;
+
+    protected Key() {}
+
+    public static Key Create(Guid audienceId, string audienceName)
     {
         if (audienceId == Guid.Empty)
             throw new ArgumentException("audience id can not be empty", nameof(audienceId));
-        AudienceId = audienceId;
         if (string.IsNullOrEmpty(audienceName))
             throw new ArgumentException("audience name can not be empty", nameof(audienceName));
-        AudienceName = audienceName;
+
+        return new Key()
+        {
+            Id = Guid.NewGuid(),
+            AudienceId = audienceId,
+            AudienceName = audienceName
+        };
     }
 }

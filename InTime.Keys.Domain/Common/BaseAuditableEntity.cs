@@ -5,6 +5,7 @@ public abstract class BaseAuditableEntity : BaseEntity, IAuditableEntity
     protected BaseAuditableEntity(Guid id) : base(id)
     {
     }
+    protected BaseAuditableEntity() { }
 
     public Guid? CreatedBy { get ; set; }
     public DateTime? CreatedDate { get ; set; }

@@ -1,6 +1,6 @@
 ﻿using InTime.Keys.Domain.Common;
 using InTime.Keys.Domain.Common.Interfaces;
-using InTime.Keys.Persistence.Contexts.EfCore.Configurations;
+using InTime.Keys.Domain.Enities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -15,9 +15,12 @@ public class ApplicationDbContext : DbContext
         _dispatcher = domainEventDispatcher;
     }
 
+    public DbSet<Key> Keys => Set<Key>();
+    public DbSet<TimeSlot> TimeSlot => Set<TimeSlot>();
+    public DbSet<Bid> Bids => Set<Bid>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 

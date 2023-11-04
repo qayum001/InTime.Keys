@@ -4,6 +4,7 @@ using InTime.Keys.Persistence.Contexts.EfCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InTime.Keys.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231104124800_BidAndTimeSlotUpdate1")]
+    partial class BidAndTimeSlotUpdate1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,11 +40,14 @@ namespace InTime.Keys.Persistence.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("KeyId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("TimeSlotId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("LessonNumber")
+                        .HasColumnType("int");
 
                     b.Property<Guid?>("UpdatedBy")
                         .HasColumnType("uniqueidentifier");
@@ -53,10 +59,6 @@ namespace InTime.Keys.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("KeyId");
-
-                    b.HasIndex("TimeSlotId");
 
                     b.ToTable("Bids");
                 });
@@ -121,25 +123,6 @@ namespace InTime.Keys.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TimeSlot");
-                });
-
-            modelBuilder.Entity("InTime.Keys.Domain.Enities.Bid", b =>
-                {
-                    b.HasOne("InTime.Keys.Domain.Enities.Key", "Key")
-                        .WithMany()
-                        .HasForeignKey("KeyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("InTime.Keys.Domain.Enities.TimeSlot", "TimeSlot")
-                        .WithMany()
-                        .HasForeignKey("TimeSlotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Key");
-
-                    b.Navigation("TimeSlot");
                 });
 #pragma warning restore 612, 618
         }

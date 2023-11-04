@@ -28,7 +28,7 @@ public class CreateBuildingKeysCommandHadler : IRequestHandler<CreateBuildingKey
     {
         foreach(var audience in request.Audiences)
         {
-            var key = new Key(Guid.NewGuid(), audience.Id, audience.Name);
+            var key = Key.Create(audience.Id, audience.Name);
             await _unitOfWork.Repository<Key>().AddAsync(key);
             await _unitOfWork.Save(cancellationToken);
         }

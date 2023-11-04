@@ -9,7 +9,7 @@ public abstract class BaseEntity : IEntity
     {
         Id = id;
     }
-
+    protected BaseEntity(){}
     public IReadOnlyCollection<BaseEvent> DomainEvents => _domainEvents.AsReadOnly();
 
     public void AddDomainEvent(BaseEvent domainEvent) => _domainEvents.Add(domainEvent);

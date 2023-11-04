@@ -4,6 +4,7 @@ using InTime.Keys.Persistence.Contexts.EfCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InTime.Keys.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231104033151_BidAndTimeSlotInit")]
+    partial class BidAndTimeSlotInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,26 +40,13 @@ namespace InTime.Keys.Persistence.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("KeyId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TimeSlotId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("UpdatedBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("KeyId");
-
-                    b.HasIndex("TimeSlotId");
 
                     b.ToTable("Bids");
                 });
@@ -66,13 +56,6 @@ namespace InTime.Keys.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AudienceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AudienceName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
@@ -106,12 +89,6 @@ namespace InTime.Keys.Persistence.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("LessonNumber")
-                        .HasColumnType("int");
-
                     b.Property<Guid?>("UpdatedBy")
                         .HasColumnType("uniqueidentifier");
 
@@ -120,26 +97,7 @@ namespace InTime.Keys.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TimeSlot");
-                });
-
-            modelBuilder.Entity("InTime.Keys.Domain.Enities.Bid", b =>
-                {
-                    b.HasOne("InTime.Keys.Domain.Enities.Key", "Key")
-                        .WithMany()
-                        .HasForeignKey("KeyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("InTime.Keys.Domain.Enities.TimeSlot", "TimeSlot")
-                        .WithMany()
-                        .HasForeignKey("TimeSlotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Key");
-
-                    b.Navigation("TimeSlot");
+                    b.ToTable("TimeSlots");
                 });
 #pragma warning restore 612, 618
         }
