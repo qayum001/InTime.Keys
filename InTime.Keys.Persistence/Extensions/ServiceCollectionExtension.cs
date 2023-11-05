@@ -1,6 +1,8 @@
 ﻿using InTime.Keys.Application.Interfaces.Repositories;
+using InTime.Keys.Application.Interfaces.Repositories.BidRepositories;
 using InTime.Keys.Persistence.Contexts.EfCore;
 using InTime.Keys.Persistence.Contexts.EfCore.Repositories;
+using InTime.Keys.Persistence.Contexts.EfCore.Repositories.BidRepositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,6 +25,7 @@ public static class ServiceCollectionExtension
     private static void AddRepositories(this IServiceCollection services)
     {
         services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork))
-            .AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            .AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>))
+            .AddTransient<IUserBidListGetRepositiry, UserBidListGetRepositiry>();
     }
 }

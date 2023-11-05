@@ -1,7 +1,9 @@
-﻿using InTime.Keys.Application.Services;
+﻿using InTime.Keys.Application.Interfaces.Services.BidServices;
+using InTime.Keys.Application.Services;
 using InTime.Keys.Infrastructure.Refit.Interfaces;
 using InTime.Keys.Infrastructure.Services;
 using InTime.Keys.Infrastructure.Services.BackgroundServices;
+using InTime.Keys.Infrastructure.Services.BidServices;
 using Microsoft.Extensions.DependencyInjection;
 using Refit;
 
@@ -32,6 +34,7 @@ namespace InTime.Keys.Infrastructure.Extensions
         private static void AddServices(this IServiceCollection services)
         {
             services.AddTransient<IKeysCreateService, KeysCreateService>();
+            services.AddTransient<IBidService, BidService>();
         }
     }
 }

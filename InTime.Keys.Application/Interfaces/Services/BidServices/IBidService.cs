@@ -5,7 +5,7 @@ namespace InTime.Keys.Application.Interfaces.Services.BidServices;
 
 public interface IBidService
 {
-    List<BidDto> GetUserBidList(Guid userId);
+    Task<List<BidDto>> GetUserBidList(Guid userId);
     Task CreateBid(Guid KeyId, DateTime date, int timeSlot, Guid userId);
-    Task CancelBid(Guid bidId);
+    Task CloseBid(Guid closerId, Guid bidId);
 }

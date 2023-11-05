@@ -1,5 +1,6 @@
 ﻿using InTime.Keys.Application.DTOs.BidDTOs;
 using InTime.Keys.Application.Features.BIds.Commands;
+using InTime.Keys.Application.Features.BIds.Queries;
 using InTime.Keys.Application.Interfaces.Services.BidServices;
 using MediatR;
 
@@ -14,9 +15,10 @@ public class BidService : IBidService
         _mediator = mediator;
     }
 
-    public Task CancelBid(Guid bidId)
+    public async Task CloseBid(Guid closerId, Guid bidId)
     {
-        throw new NotImplementedException();
+        var command = new CloseBidCommand(closerId, bidId);
+        await _mediator.Send(command);
     }
 
     public async Task CreateBid(Guid KeyId, DateTime date, int timeSlot, Guid userId)
@@ -25,8 +27,11 @@ public class BidService : IBidService
         await _mediator.Send(command);
     }
 
-    public List<BidDto> GetUserBidList(Guid userId)
+    public async Task<List<BidDto>> GetUserBidList(Guid userId)
     {
-        throw new NotImplementedException();
+        //TODO: тут должна быть  какая-то проверка что пользователь существует
+
+        var query = new GetUserBidsListQuery(userId);
+        return await _mediator.Send(query);
     }
 }
