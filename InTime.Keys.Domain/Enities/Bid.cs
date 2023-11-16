@@ -1,7 +1,6 @@
 ﻿using InTime.Keys.Domain.Common;
-using InTime.Keys.Domain.Common.DomainEvents;
+using InTime.Keys.Domain.Common.DomainEvents.BidEvents;
 using InTime.Keys.Domain.Enumerations;
-using System.Runtime.CompilerServices;
 
 namespace InTime.Keys.Domain.Enities;
 
@@ -31,5 +30,17 @@ public class Bid : BaseAuditableEntity
         //TODO: добаваить в BidClosedDomainEvent нужные данные(поля)
         AddDomainEvent(new BidClosedDomainEvent());
         BidStatus = BidStatus.Closed;
+    }
+
+    public void DenayBid(string? message = "")
+    {
+        AddDomainEvent(new BidDeniedDomainEvent(UserId, message));
+        BidStatus = BidStatus.Denied;
+    }
+
+    public void Approve()
+    {
+        AddDomainEvent(new BidApprovedDomainEvent());
+        BidStatus = BidStatus.Approved;
     }
 }

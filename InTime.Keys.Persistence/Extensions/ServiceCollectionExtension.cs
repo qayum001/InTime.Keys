@@ -26,6 +26,6 @@ public static class ServiceCollectionExtension
     {
         services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork))
             .AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>))
-            .AddTransient<IUserBidListGetRepositiry, UserBidListGetRepositiry>();
+            .AddTransient<IBidListGetRepositiry, UserBidListGetRepositiry>();
     }
 }

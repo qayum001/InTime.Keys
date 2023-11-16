@@ -2,7 +2,6 @@
 using InTime.Keys.Application.Interfaces.Repositories;
 using InTime.Keys.Domain.Enities;
 using MediatR;
-using System.Net.WebSockets;
 
 namespace InTime.Keys.Application.Features.BIds.Commands;
 

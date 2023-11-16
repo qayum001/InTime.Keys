@@ -1,5 +1,4 @@
-﻿using InTime.Keys.Application.DTOs.UserDTOs;
-using InTime.Keys.Application.Interfaces.Repositories;
+﻿using InTime.Keys.Application.Interfaces.Repositories;
 using InTime.Keys.Domain.Enities;
 using MediatR;
 

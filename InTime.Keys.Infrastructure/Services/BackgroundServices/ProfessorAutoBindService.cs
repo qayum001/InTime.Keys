@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System.Runtime.CompilerServices;
 
 namespace InTime.Keys.Infrastructure.Services.BackgroundServices;
 

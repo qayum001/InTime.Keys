@@ -18,9 +18,9 @@ public record GetUserBidsListQuery : IRequest<List<BidDto>>
 
 public class GetUserBidListQueryHandler : IRequestHandler<GetUserBidsListQuery, List<BidDto>>
 {
-    private readonly IUserBidListGetRepositiry _bidRepository;
+    private readonly IBidListGetRepositiry _bidRepository;
     
-    public GetUserBidListQueryHandler(IUserBidListGetRepositiry unitOfWork)
+    public GetUserBidListQueryHandler(IBidListGetRepositiry unitOfWork)
     {
         _bidRepository = unitOfWork;
     }

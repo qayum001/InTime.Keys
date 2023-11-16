@@ -1,5 +1,4 @@
 ﻿using InTime.Keys.Domain.Enumerations;
-using System.Globalization;
 
 namespace InTime.Keys.Application.DTOs.BidDTOs;
 

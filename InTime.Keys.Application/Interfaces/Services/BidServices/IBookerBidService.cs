@@ -3,7 +3,7 @@ using InTime.Keys.Application.DTOs.UserDTOs;
 
 namespace InTime.Keys.Application.Interfaces.Services.BidServices;
 
-public interface IBidService
+public interface IBookerBidService
 {
     Task<List<BidDto>> GetUserBidList(Guid userId);
     Task CreateBid(Guid KeyId, DateTime date, int timeSlot, Guid userId);

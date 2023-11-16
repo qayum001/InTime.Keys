@@ -6,11 +6,11 @@ using MediatR;
 
 namespace InTime.Keys.Infrastructure.Services.BidServices;
 
-public class BidService : IBidService
+public class BookerBidService : IBookerBidService
 {
     private readonly IMediator _mediator;
 
-    public BidService(IMediator mediator)
+    public BookerBidService(IMediator mediator)
     {
         _mediator = mediator;
     }
@@ -30,6 +30,7 @@ public class BidService : IBidService
     public async Task<List<BidDto>> GetUserBidList(Guid userId)
     {
         //TODO: тут должна быть  какая-то проверка что пользователь существует
+        // и проверка на то что в расписании слот запроса свободный        
 
         var query = new GetUserBidsListQuery(userId);
         return await _mediator.Send(query);

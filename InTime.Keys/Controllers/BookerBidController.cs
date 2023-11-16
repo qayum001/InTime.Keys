@@ -8,9 +8,9 @@ namespace InTime.Keys.API.Controllers;
 [Route("[controller]")]
 public class BookerBidController : ControllerBase
 {
-    private readonly IBidService _bidService;
+    private readonly IBookerBidService _bidService;
 
-    public BookerBidController(IBidService bidService)
+    public BookerBidController(IBookerBidService bidService)
     {
         _bidService = bidService;
     }

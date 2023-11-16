@@ -1,4 +1,4 @@
-﻿namespace InTime.Keys.Domain.Common.DomainEvents;
+﻿namespace InTime.Keys.Domain.Common.DomainEvents.BidEvents;
 
 public sealed class BidCreatedDomainEvent : BaseEvent
 {

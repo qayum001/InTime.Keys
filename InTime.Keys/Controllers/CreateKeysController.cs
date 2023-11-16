@@ -1,4 +1,5 @@
 ﻿using InTime.Keys.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InTime.Keys.API.Controllers;
@@ -13,7 +14,6 @@ public class CreateKeysController : ControllerBase
     {
         _keysCreateService = keysCreateService;
     }
-
     [HttpPost]
     public async Task<ActionResult> CreateKeys()
     {

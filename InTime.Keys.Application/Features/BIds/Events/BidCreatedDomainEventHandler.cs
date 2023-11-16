@@ -1,5 +1,5 @@
 ﻿using InTime.Keys.Application.Interfaces.Repositories;
-using InTime.Keys.Domain.Common.DomainEvents;
+using InTime.Keys.Domain.Common.DomainEvents.BidEvents;
 using InTime.Keys.Domain.Enities;
 using MediatR;
 
