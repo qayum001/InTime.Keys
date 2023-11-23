@@ -1,14 +1,9 @@
 ﻿using JsonKnownTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InTime.Keys.Infrastructure.Refit.InTimeModels.Schedule
 {
     [JsonKnownThisType("LESSON")]
-    public class LessonGrid
+    public class LessonGrid : EmptyLessonGrid
     {
         public Guid Id { get; set; }
         public string Title { get; set; }

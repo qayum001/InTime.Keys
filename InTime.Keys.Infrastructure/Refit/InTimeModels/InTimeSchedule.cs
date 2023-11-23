@@ -10,6 +10,6 @@ namespace InTime.Keys.Infrastructure.Refit.InTimeModels
     public class InTimeSchedule
     {
         public DateTime Date { get; set; }
-        public IEnumerable<EmptyLessonGrid> Schedule { get; set; }
+        public IEnumerable<EmptyLessonGrid> Lessons { get; set; }
     }
 }

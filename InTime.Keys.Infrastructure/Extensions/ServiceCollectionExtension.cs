@@ -1,7 +1,6 @@
 ﻿using InTime.Keys.Application.Interfaces.Services.BidServices;
 using InTime.Keys.Application.Interfaces.Services.KeyServices;
 using InTime.Keys.Application.Services;
-using InTime.Keys.Infrastructure.Authorization.Handler;
 using InTime.Keys.Infrastructure.Refit.Interfaces;
 using InTime.Keys.Infrastructure.Services;
 using InTime.Keys.Infrastructure.Services.BackgroundServices;
@@ -41,7 +40,7 @@ namespace InTime.Keys.Infrastructure.Extensions
             services.AddTransient<IKeysCreateService, KeysCreateService>();
             services.AddTransient<IBookerBidService, BookerBidService>();
             services.AddTransient<IBidControlService, BidControlService>();
-            services.AddTransient<IKeyService, KeyService>();
+            services.AddTransient<IKeyGetService, KeyService>();
         }
     }
 }
