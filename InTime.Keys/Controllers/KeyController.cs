@@ -1,6 +1,5 @@
 ﻿using InTime.Keys.Application.DTOs.KeyDTOs;
 using InTime.Keys.Application.Interfaces.Services.KeyServices;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InTime.Keys.API.Controllers

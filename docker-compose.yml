@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  intime.keys.api:
+    image: ${DOCKER_REGISTRY-}intimekeysapi
+    build:
+      context: .
+      dockerfile: InTime.Keys/Dockerfile
+   
+  sqlpreview:
+    image: eb2f592e828409c399eedf709832e6e952e7ba85ae85e783f498451ca6b789db
+
+

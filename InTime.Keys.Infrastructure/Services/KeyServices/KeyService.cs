@@ -54,6 +54,7 @@ public class KeyService : IKeyGetService
                 {
                     if(typeof(InTimeSchedule) != sch.GetType())
                         continue;
+
                     foreach(var lesson in sch.Lessons)
                     {
                         if (lesson.LessonNumber != timeSlot)
