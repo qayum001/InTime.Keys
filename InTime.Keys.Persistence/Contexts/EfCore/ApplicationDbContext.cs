@@ -18,6 +18,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Key> Keys => Set<Key>();
     public DbSet<TimeSlot> TimeSlot => Set<TimeSlot>();
     public DbSet<Bid> Bids => Set<Bid>();
+    public DbSet<KeyTransfer> KeyTransfers => Set<KeyTransfer>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

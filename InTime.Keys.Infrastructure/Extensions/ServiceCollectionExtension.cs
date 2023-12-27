@@ -6,10 +6,14 @@ using InTime.Keys.Infrastructure.Refit.Interfaces;
 using InTime.Keys.Infrastructure.Services;
 using InTime.Keys.Infrastructure.Services.BackgroundServices;
 using InTime.Keys.Infrastructure.Services.BidServices;
+using InTime.Keys.Infrastructure.Services.EmailServices;
 using InTime.Keys.Infrastructure.Services.KeyServices;
 using InTime.Keys.Infrastructure.Services.UserServices.UserSeachService;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NETCore.MailKit.Core;
+using Org.BouncyCastle.Bcpg;
 using Refit;
 using System.Runtime.CompilerServices;
 
@@ -17,10 +21,11 @@ namespace InTime.Keys.Infrastructure.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        public static void AddInfrastructureLayer(this IServiceCollection services)
+        public static void AddInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddInTimeClient();
             services.AddServices();
+            services.AddEmailServices(configuration);
             //services.AddAccauntClient();
         }
 
@@ -38,6 +43,12 @@ namespace InTime.Keys.Infrastructure.Extensions
 
             services.AddRefitClient<IAccountClient>(refitSettings)
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://accounts.tsu.ru/api/profile/"));
+        }
+
+        private static void AddEmailServices(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddSingleton<ISmtpClientFabric, SmtpClientFabric>();
+            services.AddSingleton<IBaseEmailService, BaseEmailService>();
         }
 
         private static void AddAutoBidService(this IServiceCollection services)
