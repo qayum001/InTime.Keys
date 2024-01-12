@@ -63,6 +63,7 @@ namespace InTime.Keys.Infrastructure.Extensions
             services.AddTransient<IBidControlService, BidControlService>();
             services.AddTransient<IKeyGetService, KeyService>();
             services.AddTransient<IUserSearchService, UserSearchService>();
+            services.AddTransient<IKeyTransferService, KeyTransferService>();
         }
     }
 }

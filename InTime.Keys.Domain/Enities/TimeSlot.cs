@@ -13,7 +13,7 @@ public class TimeSlot : BaseAuditableEntity
     public static TimeSlot Create(int lessonNumber, DateTime date)
     {
         if (lessonNumber < 0 || lessonNumber > 7)
-            throw new ArgumentOutOfRangeException("Lesson number must be in range [1:7]", nameof(LessonNumber));
+            throw new ArgumentOutOfRangeException(nameof(LessonNumber), "Lesson number must be in range [1:7]");
 
         return new TimeSlot()
         {

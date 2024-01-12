@@ -3,6 +3,7 @@ using InTime.Keys.Application.Interfaces.Repositories;
 using InTime.Keys.Application.Interfaces.Repositories.BidRepositories;
 using InTime.Keys.Domain.Enities;
 using MediatR;
+using System.Reflection.Metadata;
 
 namespace InTime.Keys.Application.Features.BIds.Queries;
 
@@ -24,11 +25,13 @@ public class GetTimeSlotBidsWithPaginationQuery : IRequest<List<BidDto>>
 
 public class GetTimeSlotBidsWithPaginationQueryHandler : IRequestHandler<GetTimeSlotBidsWithPaginationQuery, List<BidDto>>
 {
-    private readonly IBidListGetRepositiry _bidRepository;
+    private readonly IBidListGetRepositiry _bidRepository; 
+    private readonly IUnitOfWork _unitOfWork;
 
-    public GetTimeSlotBidsWithPaginationQueryHandler(IBidListGetRepositiry bidListGetRepositiry)
+    public GetTimeSlotBidsWithPaginationQueryHandler(IBidListGetRepositiry bidListGetRepositiry, IUnitOfWork unitOfWork)
     {
         _bidRepository = bidListGetRepositiry;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<List<BidDto>> Handle(GetTimeSlotBidsWithPaginationQuery request, CancellationToken cancellationToken)
@@ -37,13 +40,22 @@ public class GetTimeSlotBidsWithPaginationQueryHandler : IRequestHandler<GetTime
 
         var res = new List<BidDto>();
 
-        foreach (var bid in bids)
+        foreach (var b in bids)
         {
-            if (bid.TimeSlot.LessonNumber != request.TimeSlot)
+            if (b.TimeSlot.LessonNumber != request.TimeSlot)
                 continue;
 
-            var dto = new BidDto(bid.Id, bid.TimeSlot.Date, bid.TimeSlot.LessonNumber, 
-                bid.Key.Id, bid.Key.AudienceId, bid.Key.AudienceName, bid.BidStatus);
+            var currentUser = _unitOfWork.Repository<User>().Entities.FirstOrDefault(e => e.UserId == b.UserId);
+
+            if (currentUser is null)
+            {
+                var nullDto = new BidDto(b.Id, b.TimeSlot.Date, b.TimeSlot.LessonNumber, 
+                    b.Key.Id, b.Key.AudienceId, b.Key.AudienceName, b.BidStatus, null, null);
+                res.Add(nullDto);
+                continue;
+            }
+            var dto = new BidDto(b.Id, b.TimeSlot.Date, b.TimeSlot.LessonNumber,
+                b.Key.Id, b.Key.AudienceId, b.Key.AudienceName, b.BidStatus, null, null);
 
             res.Add(dto);
         }

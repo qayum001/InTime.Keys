@@ -23,7 +23,6 @@ public record CreateKeyTransferBidCommand : IRequest<KeyTransfer>
         TimeSlot = timeSlot;
         Date = date;
     }
-
 }
 
 public class CreateKeyTransferBidCommandHandler : IRequestHandler<CreateKeyTransferBidCommand, KeyTransfer>
@@ -47,4 +46,3 @@ public class CreateKeyTransferBidCommandHandler : IRequestHandler<CreateKeyTrans
         return kTransfer;
     }
 }
-

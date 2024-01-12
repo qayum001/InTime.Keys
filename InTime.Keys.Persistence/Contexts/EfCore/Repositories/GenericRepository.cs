@@ -36,8 +36,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T: BaseAuditable
 
     public async Task<T> GetById(Guid id)
     {
-        return await _context.Set<T>().FindAsync(id)
-            ?? throw new NullReferenceException($"{typeof(T).Name}Not Found");
+        return await _context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
     }
 
     public async Task UpdateAsync(T entity)

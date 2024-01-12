@@ -8,4 +8,6 @@ public record BidDto(Guid BidId,
                   Guid KeyId,
                   Guid AudienceId,
                   string AudienceName,
-                  BidStatus BidStatus);
+                  BidStatus BidStatus,
+                  Guid? UserID,
+                  string? FullName);

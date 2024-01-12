@@ -1,8 +1,10 @@
-﻿using InTime.Keys.Application.Features.BIds.Commands;
+﻿using InTime.Keys.Application.DTOs.KeyTransferDTOs;
+using InTime.Keys.Application.Features.BIds.Commands;
 using InTime.Keys.Application.Features.BIds.Queries;
 using InTime.Keys.Application.Features.KeyTransfers.Queries;
 using InTime.Keys.Application.Interfaces.Services.BidServices;
 using InTime.Keys.Infrastructure.Services.EmailServices;
+using InTime.Keys.Infrastructure.Services.UserServices.UserSeachService;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using NETCore.MailKit.Core;
@@ -15,13 +17,13 @@ public class KeyTransferService : IKeyTransferService
 {
     private readonly IMediator _mediator;
     private readonly IConfiguration _configuration;
-    private readonly IKeyTransferEmailService _keyTransferEmailService;
+    private readonly IUserSearchService _userSearchService;
 
-    public KeyTransferService(IMediator mediator, IConfiguration configuration, IKeyTransferEmailService keyTransferEmailService)
+    public KeyTransferService(IMediator mediator, IConfiguration configuration, IUserSearchService userSearchService)
     {
         _mediator = mediator;
         _configuration = configuration;
-        _keyTransferEmailService = keyTransferEmailService;
+        _userSearchService = userSearchService;
     }
 
     public Task ApporveTransfer(string hash)
@@ -29,22 +31,32 @@ public class KeyTransferService : IKeyTransferService
         throw new NotImplementedException();
     }
 
-    /*    public Task ApporveTransfer(string hash)
+    public async Task<List<KeyTransferDto>> GetUserTransfers(Guid userId)
+    {
+        var dtoList = await _mediator.Send(new GetUserKeyTransfersQuery(userId));
+
+        foreach(var item in dtoList)
         {
-            var keyTransfer = _mediator.Send(new GetTransferByHashQuery(hash));
-            if(keyTransfer != null)
+            if (string.IsNullOrEmpty(item.SenderName))
             {
-                throw new Exception("Transfer not found");
+                var sender = await _userSearchService.GetUserById(item.SenderId);
+                item.SenderName = sender.FullName;
             }
-
-
+            if (string.IsNullOrEmpty(item.RecieverName))
+            {
+                var reciever = await _userSearchService.GetUserById(item.RecieverId);
+                item.RecieverName = reciever.FullName;
+            }
         }
-    */
+
+        return dtoList;
+    }
+
     public async Task TransferKey(Guid senderId, Guid receiverId, Guid keyId, int timeSlot, DateTime date)
     {
         var senderBidList = await _mediator.Send(new GetUserBidsListQuery(senderId));
 
-        if(!senderBidList.Any(e => e.KeyId == keyId && e.BidStatus == Domain.Enumerations.BidStatus.GiveAway))
+        if(!senderBidList.Any(e => e.KeyId == keyId && e.BidStatus == Domain.Enumerations.BidStatus.Approved))
         {
             throw new Exception("Sender has no current key, please cancel bid or get key first");
         }
